@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verification - FoundFunded</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <h1 onclick="window.location.href='index.html'">Found & Funded</h1>
+        </div>
+        <div class="nav-buttons">
+            <button class="login-btn" onclick="window.location.href='index.html'">Home</button>
+        </div>
+    </nav>
+
+    <div class="verification-container">
+        <h2>Identity Verification</h2>
+        <p class="verification-subtitle">Please upload your documents for verification</p>
+
+        <div class="verification-form">
+            <div class="document-upload">
+                <h3>ID Proof</h3>
+                <div class="upload-box" id="idProofBox">
+                    <input type="file" id="idProof" accept=".pdf,.jpg,.jpeg,.png" onchange="previewDocument('idProof', 'idProofBox')">
+                    <p>Upload ID Proof (Aadhar, PAN, Passport)</p>
+                    <img id="idProofPreview" style="display: none;">
+                </div>
+            </div>
+
+            <div class="document-upload">
+                <h3>Address Proof</h3>
+                <div class="upload-box" id="addressProofBox">
+                    <input type="file" id="addressProof" accept=".pdf,.jpg,.jpeg,.png" onchange="previewDocument('addressProof', 'addressProofBox')">
+                    <p>Upload Address Proof (Aadhar, Utility Bill, Bank Statement)</p>
+                    <img id="addressProofPreview" style="display: none;">
+                </div>
+            </div>
+
+            <div class="verification-status" id="verificationStatus" style="display: none;">
+                <p class="status-message"></p>
+            </div>
+
+            <button class="submit-btn" onclick="verifyDocuments()">Submit for Verification</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 

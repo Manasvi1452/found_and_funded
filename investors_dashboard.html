@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Found & Funded - Startup-Investor Connect</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- Main Dashboard -->
+    <div id="dashboard" class="container mx-auto p-4">
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold cursor-pointer" onclick="window.location.href='index.html'">Found & Funded</h1>
+            <!-- Startup Profile Icon with Tooltip -->
+            <div class="relative">
+                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&h=100&q=80" alt="Startup Icon" class="w-12 h-12 rounded-full cursor-pointer object-cover" title="TechTrend Innovations" onclick="window.location.href='profile_startup.html'">
+            </div>
+        </div>
+        
+        <!-- Filters -->
+        <div class="mb-6 flex flex-wrap gap-4">
+            <div>
+                <label for="location-filter" class="block text-sm font-medium text-gray-700">Location</label>
+                <select id="location-filter" class="mt-1 p-2 border rounded">
+                    <option value="">All Locations</option>
+                    <option value="Mumbai">Mumbai</option>
+                    <option value="Bengaluru">Bengaluru</option>
+                    <option value="Delhi">Delhi</option>
+                </select>
+            </div>
+            <div>
+                <label for="domain-filter" class="block text-sm font-medium text-gray-700">Domain</label>
+                <select id="domain-filter" class="mt-1 p-2 border rounded">
+                    <option value="">All Domains</option>
+                    <option value="Tech">Tech</option>
+                    <option value="Healthcare">Healthcare</option>
+                    <option value="Real Estate">Real Estate</option>
+                    <option value="Social Impact">Social Impact</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Investor List -->
+        <div id="investor-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            <!-- Investor cards will be populated here -->
+        </div>
+
+        <!-- Startup Profile (Always Visible) -->
+        <div id="startup-profile" class="bg-white p-6 rounded-lg shadow">
+            <div class="flex items-center mb-4">
+                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&h=100&q=80" alt="Startup" class="w-16 h-16 rounded-full mr-4 object-cover">
+                <h2 class="text-xl font-semibold">Your Startup Profile</h2>
+            </div>
+            <p><strong>Startup Name:</strong> <span id="startup-name">TechTrend Innovations</span></p>
+            <p><strong>Founder:</strong> <span id="startup-person">Aarav Kumar</span></p>
+            <p><strong>Project Name:</strong> <span id="project-name">AI Enterprise Suite</span></p>
+            <p><strong>Location:</strong> <span id="startup-location">Bengaluru</span></p>
+            <p><strong>Domain:</strong>ide:medium
+            <p><strong>Description:</strong> Developing AI-powered solutions for enterprise automation.</p>
+        </div>
+    </div>
+
+    <!-- Chat Page (Hidden by default) -->
+    <div id="chat-page" class="container mx-auto p-4 hidden">
+        <div class="flex justify-between items-center mb-4">
+            <h1 class="text-2xl font-bold">Chat with <span id="chat-investor-name"></span></h1>
+            <button onclick="showDashboard()" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">Back to Dashboard</button>
+        </div>
+        <div id="chat-messages" class="bg-white p-4 rounded-lg shadow h-96 overflow-y-auto mb-4"></div>
+        <div class="flex">
+            <input id="chat-input" type="text" class="flex-grow p-2 border rounded-l" placeholder="Type your message...">
+            <button onclick="sendMessage()" class="bg-blue-500 text-white px-4 py-2 rounded-r hover:bg-blue-600">Send</button>
+        </div>
+    </div>
+
+    <script>
+        // Sample investor data (Indian-based, with location)
+        const investors = [
+            {
+                id: 1,
+                name: "Anita Sharma",
+                location: "Mumbai",
+                domain: "Tech",
+                investmentAmount: 600000,
+                profilePic: "https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=200&q=80"
+            },
+            {
+                id: 2,
+                name: "Rahul Verma",
+                location: "Bengaluru",
+                domain: "Healthcare",
+                investmentAmount: 800000,
+                profilePic: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=200&q=80"
+            },
+            {
+                id: 3,
+                name: "Priya Singh",
+                location: "Delhi",
+                domain: "Real Estate",
+                investmentAmount: 1200000,
+                profilePic: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=200&q=80"
+            },
+            {
+                id: 4,
+                name: "Vikram Patel",
+                location: "Bengaluru",
+                domain: "Tech",
+                investmentAmount: 500000,
+                profilePic: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=200&q=80"
+            },
+            {
+                id: 5,
+                name: "Neha Gupta",
+                location: "Mumbai",
+                domain: "Social Impact",
+                investmentAmount: 400000,
+                profilePic: "https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=200&q=80"
+            }
+        ];
+
+        // Mock chat data (stored in memory for the session)
+        let chatHistory = {};
+
+        // Function to render investors
+        function renderInvestors(filterLocation = '', filterDomain = '') {
+            const investorList = document.getElementById('investor-list');
+            investorList.innerHTML = '';
+
+            const filteredInvestors = investors.filter(investor => {
+                const locationMatch = filterLocation ? investor.location === filterLocation : true;
+                const domainMatch = filterDomain ? investor.domain === filterDomain : true;
+                return locationMatch && domainMatch;
+            });
+
+            if (filteredInvestors.length === 0) {
+                investorList.innerHTML = '<p class="text-gray-600 text-center col-span-full">No investors found for the selected criteria.</p>';
+            } else {
+                filteredInvestors.forEach(investor => {
+                    const card = document.createElement('div');
+                    card.className = 'bg-white p-6 rounded-lg shadow flex flex-col items-center';
+                    card.innerHTML = `
+                        <img src="${investor.profilePic}" alt="${investor.name}" class="w-24 h-24 rounded-full mb-4 object-cover">
+                        <h3 class="text-lg font-semibold">${investor.name}</h3>
+                        <p class="text-gray-600">Location: ${investor.location}</p>
+                        <p class="text-gray-600">Domain: ${investor.domain}</p>
+                        <p class="text-gray-600">Investment: $${investor.investmentAmount.toLocaleString()}</p>
+                        <button onclick="connectWithInvestor(${investor.id})" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Connect</button>
+                    `;
+                    investorList.appendChild(card);
+                });
+            }
+        }
+
+        // Function to show chat page
+        function connectWithInvestor(investorId) {
+            const investor = investors.find(inv => inv.id === investorId);
+            document.getElementById('chat-investor-name').textContent = investor.name;
+            document.getElementById('dashboard').classList.add('hidden');
+            document.getElementById('chat-page').classList.remove('hidden');
+
+            // Initialize chat history for this investor if not exists
+            if (!chatHistory[investor.id]) {
+                chatHistory[investor.id] = [];
+            }
+
+            // Render chat messages
+            renderChatMessages(investor.id);
+        }
+
+        // Function to render chat messages
+        function renderChatMessages(investorId) {
+            const chatMessages = document.getElementById('chat-messages');
+            chatMessages.innerHTML = '';
+
+            chatHistory[investorId].forEach(message => {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `flex items-start mb-4 ${message.sender === 'startup' ? 'justify-end' : ''}`;
+                messageDiv.innerHTML = `
+                    ${message.sender === 'startup' ? '' : `<img src="${investors.find(inv => inv.id === investorId).profilePic}" alt="Profile" class="w-8 h-8 rounded-full mr-2 object-cover">`}
+                    <div class="${message.sender === 'startup' ? 'bg-blue-100' : 'bg-gray-100'} rounded-lg p-3 max-w-[70%]">
+                        <p class="text-gray-800">${message.text}</p>
+                        <span class="text-xs text-gray-500">${message.timestamp}</span>
+                    </div>
+                    ${message.sender === 'startup' ? `<img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&h=100&q=80" alt="You" class="w-8 h-8 rounded-full ml-2 object-cover">` : ''}
+                `;
+                chatMessages.appendChild(messageDiv);
+            });
+
+            // Scroll to bottom of chat
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Function to send message
+        function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const messageText = input.value.trim();
+            if (messageText) {
+                const investorId = parseInt(document.getElementById('chat-investor-name').textContent.split(' ').slice(-1)[0]) || investors.find(inv => inv.name === document.getElementById('chat-investor-name').textContent).id;
+                const timestamp = new Date().toLocaleTimeString();
+
+                // Add startup message
+                chatHistory[investorId].push({
+                    sender: 'startup',
+                    text: messageText,
+                    timestamp: timestamp
+                });
+
+                // Render messages and clear input
+                renderChatMessages(investorId);
+                input.value = '';
+
+                // Simulate investor response (mock)
+                setTimeout(() => {
+                    const responses = [
+                        "That sounds interesting! Tell me more about your project.",
+                        "I'd love to learn more about your business model.",
+                        "What's your current stage of development?",
+                        "Do you have any traction or revenue yet?",
+                        "What's your target market?"
+                    ];
+                    const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                    
+                    chatHistory[investorId].push({
+                        sender: 'investor',
+                        text: randomResponse,
+                        timestamp: new Date().toLocaleTimeString()
+                    });
+                    renderChatMessages(investorId);
+                }, 1000);
+            }
+        }
+
+        // Function to show dashboard
+        function showDashboard() {
+            document.getElementById('chat-page').classList.add('hidden');
+            document.getElementById('dashboard').classList.remove('hidden');
+        }
+
+        // Event listeners for filters
+        document.getElementById('location-filter').addEventListener('change', (e) => {
+            renderInvestors(e.target.value, document.getElementById('domain-filter').value);
+        });
+
+        document.getElementById('domain-filter').addEventListener('change', (e) => {
+            renderInvestors(document.getElementById('location-filter').value, e.target.value);
+        });
+
+        // Event listener for Enter key in chat input
+        document.getElementById('chat-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Initial render
+        renderInvestors();
+    </script>
+</body>
+</html>

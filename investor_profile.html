@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Investor Profile - FoundFunded</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+  <!-- Navigation Bar -->
+  <nav class="bg-white shadow-md p-4">
+    <div class="container mx-auto flex justify-between items-center">
+      <div class="flex items-center">
+        <h1 class="text-2xl font-bold text-blue-600 cursor-pointer" onclick="window.location.href='index.html'">Found & Funded</h1>
+      </div>
+      <div class="flex space-x-4">
+        <button onclick="window.location.href='index.html'" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Home</button>
+        <button onclick="window.location.href='startup_dashboard.html'" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Dashboard</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Profile Content -->
+  <div class="container mx-auto p-8">
+    <div class="bg-white rounded-lg shadow-md p-8">
+      <div class="flex items-center space-x-6 mb-8">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&h=100&q=80" 
+             alt="Investor Profile" 
+             class="w-32 h-32 rounded-full object-cover">
+        <div>
+          <h1 class="text-3xl font-bold text-gray-800">Rahul Verma</h1>
+          <p class="text-xl text-gray-600">Healthcare Investor</p>
+          <p class="text-gray-500">Bengaluru, Karnataka</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Investment Details -->
+        <div class="bg-gray-50 p-6 rounded-lg">
+          <h2 class="text-xl font-semibold mb-4">Investment Details</h2>
+          <div class="space-y-4">
+            <div>
+              <p class="text-gray-600">Investment Capacity</p>
+              <p class="text-2xl font-bold">₹60,000,000</p>
+            </div>
+            <div>
+              <p class="text-gray-600">Preferred Sectors</p>
+              <div class="flex flex-wrap gap-2 mt-2">
+                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">Healthcare</span>
+                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">Technology</span>
+                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">Biotech</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- About Section -->
+        <div class="bg-gray-50 p-6 rounded-lg">
+          <h2 class="text-xl font-semibold mb-4">About</h2>
+          <p class="text-gray-600">
+            Experienced healthcare investor with a focus on early-stage startups in the medical technology and healthcare services sectors. 
+            Passionate about supporting innovative solutions that improve patient care and healthcare delivery.
+          </p>
+        </div>
+
+        <!-- Investment History -->
+        <div class="bg-gray-50 p-6 rounded-lg">
+          <h2 class="text-xl font-semibold mb-4">Investment History</h2>
+          <div class="space-y-4">
+            <div class="border-b pb-4">
+              <p class="font-medium">MediCare Innovations</p>
+              <p class="text-gray-600">Healthcare Technology</p>
+              <p class="text-sm text-gray-500">Investment: ₹25,000,000</p>
+            </div>
+            <div class="border-b pb-4">
+              <p class="font-medium">HealthTech Solutions</p>
+              <p class="text-gray-600">Medical Devices</p>
+              <p class="text-sm text-gray-500">Investment: ₹15,000,000</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Information -->
+        <div class="bg-gray-50 p-6 rounded-lg">
+          <h2 class="text-xl font-semibold mb-4">Contact Information</h2>
+          <div class="space-y-2">
+            <p class="text-gray-600">Email: rahul.verma@example.com</p>
+            <p class="text-gray-600">Phone: +91 98765 43210</p>
+            <p class="text-gray-600">LinkedIn: linkedin.com/in/rahulverma</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

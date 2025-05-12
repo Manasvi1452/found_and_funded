@@ -1,0 +1,46 @@
+@import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.0.2/dist/tailwind.min.css');
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f7fafc;
+}
+
+.container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  margin-bottom: 50px;
+}
+
+.profile-container {
+  padding: 20px;
+  margin-bottom: 40px;
+  border-radius: 12px;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.profile-container img {
+  width: 128px;
+  height: 128px;
+  object-fit: cover;
+}
+
+.details, .work-section, .social-links, .investment-history {
+  margin-top: 20px;
+}
+
+h3 {
+  margin-top: 10px;
+}
+
+button {
+  margin-top: 15px;
+}
+
+button:hover {
+  background-color: #fbbf24;
+}
