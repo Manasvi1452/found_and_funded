@@ -137,14 +137,15 @@
             } else {
                 filteredInvestors.forEach(investor => {
                     const card = document.createElement('div');
-                    card.className = 'bg-white p-6 rounded-lg shadow flex flex-col items-center';
+                    card.className = 'bg-white p-6 rounded-lg shadow flex flex-col items-center cursor-pointer hover:shadow-lg transition-shadow duration-200';
+                    card.onclick = () => window.location.href = `investor_profile.html?id=${investor.id}`;
                     card.innerHTML = `
                         <img src="${investor.profilePic}" alt="${investor.name}" class="w-24 h-24 rounded-full mb-4 object-cover">
                         <h3 class="text-lg font-semibold">${investor.name}</h3>
                         <p class="text-gray-600">Location: ${investor.location}</p>
                         <p class="text-gray-600">Domain: ${investor.domain}</p>
                         <p class="text-gray-600">Investment: $${investor.investmentAmount.toLocaleString()}</p>
-                        <button onclick="connectWithInvestor(${investor.id})" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Connect</button>
+                        <button onclick="event.stopPropagation(); connectWithInvestor(${investor.id})" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Connect</button>
                     `;
                     investorList.appendChild(card);
                 });
